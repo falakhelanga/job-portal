@@ -1,0 +1,54 @@
+(function (w, d) {
+    'use strict';
+    var s1 = d.getElementsByTagName('script')[0],
+        s = d.createElement('script'),
+        attr,
+        pageFn,
+        onReady;
+    s.src = '//tru.am/scripts/ta-pagesocial-sdk.js';
+    attr = function (domQ, name) {
+      var l = document.querySelector(domQ);
+      if (l) {
+        // Use getAttribute() to avoid encoded strings.
+        return l.getAttribute(name);
+      }
+      return undefined;
+    };
+    pageFn = function () {
+      var l, u;
+  
+      l = document.location;
+      u = l.protocol + '//' + l.host + l.pathname;
+  
+      return {
+        'canonical': attr('link[rel="canonical"]', 'href'),
+        'og:type': 'article',
+        'og:url': attr('meta[property="og:url"]', 'content')
+      };
+    };
+    onReady = function () {
+      var l = document.location,
+          h = l.hostname.toLowerCase(),
+          cid;
+      if (h.indexOf('aljazeera.com') > -1) {
+        cid = '1278';
+      } else if (h.indexOf('aljazeera.net') > -1) {
+        cid = '1279';
+      } 
+      if (cid) {
+        w.TRUE_ANTHEM.configure(cid, {page: pageFn});
+      }
+    };
+    if (s.addEventListener) {
+      s.addEventListener('load', onReady, false);
+    } else {
+      s.onreadystatechange = function () {
+        if (s.readyState in {loaded: 1, complete: 1}) {
+          s.onreadystatechange = null;
+          onReady();
+        }
+      };
+    }
+    s1.parentNode.insertBefore(s, s1);
+  }(window, document));
+  

@@ -1,0 +1,35 @@
+.search {
+  border: 1px solid #d8d8d8;
+  width: 250px;
+  height: 28px;
+  border-radius: 3px;
+  display: flex;
+  margin-left: 1rem;
+  form {
+    flex: 1;
+    display: flex;
+  }
+  input {
+    border: none;
+    flex: 1;
+    outline: none;
+    padding-left: 0.5rem;
+  }
+
+  .icon-div {
+    width: 40px;
+  }
+
+  .search_icon {
+    color: white !important;
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .search {
+    width: 400px;
+    height: 38px;
+  }
+}
