@@ -1,6 +1,7 @@
 import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
+import { useSelector } from "react-redux";
 
 const FormContainer = ({
   title,
@@ -10,6 +11,7 @@ const FormContainer = ({
   handleClick,
   handleAdd,
 }) => {
+  const { isEmployer } = useSelector((state) => state.userLogin);
   return (
     <div
       className="mt-3"
@@ -18,7 +20,7 @@ const FormContainer = ({
         position: "relative",
       }}
     >
-      {edit && (
+      {edit && !isEmployer && (
         <div
           className="d-flex align-items-center"
           style={{
@@ -53,7 +55,7 @@ const FormContainer = ({
         >
           {title}
         </h5>
-        {add && (
+        {add && !isEmployer && (
           <div
             onClick={handleAdd}
             className="d-flex align-items-center mr-2"

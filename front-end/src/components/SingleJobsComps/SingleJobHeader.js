@@ -10,10 +10,12 @@ import MySnackbar from "../../components/SnackBar";
 import { useSaveJob, useJobApply } from "../../customHooks/useFetch";
 import { useSelector } from "react-redux";
 import moment from "moment";
+
 import { withRouter } from "react-router-dom";
 const SingleJobHeader = ({ jobId, history }) => {
   const singleJobState = useSelector((state) => state.fetchSingleJob);
   const token = useSelector((state) => state.userLogin.token);
+  const { isEmployer } = useSelector((state) => state.userLogin);
   const isAuth = token;
   const {
     saveJob,
@@ -117,71 +119,73 @@ const SingleJobHeader = ({ jobId, history }) => {
             </div>
           </div>
           {/* BUTTONS */}
-          <div className="btn-div d-flex w-100 flex-column flex-lg-row  mt-3">
-            <div className="w-100 apply-btn mr-2">
-              <Button
-                onClick={() => {
-                  if (!isAuth)
-                    return history.push(`/login/?redirect=/job/${jobId}`);
-                  apply();
-                }}
-                variant="dark"
-                className="btn-block d-flex justify-content-center align-items-center mt-1"
-              >
-                {" "}
-                {applyLoader ? (
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                ) : (
-                  <>
-                    <span style={{ fontWeight: "bold" }}>Apply Now </span>
-                    <ArrowForwardIosOutlinedIcon
-                      className="ml-5"
-                      fontSize="small"
+          {!isEmployer && (
+            <div className="btn-div d-flex w-100 flex-column flex-lg-row  mt-3">
+              <div className="w-100 apply-btn mr-2">
+                <Button
+                  onClick={() => {
+                    if (!isAuth)
+                      return history.push(`/login/?redirect=/job/${jobId}`);
+                    apply();
+                  }}
+                  variant="dark"
+                  className="btn-block d-flex justify-content-center align-items-center mt-1"
+                >
+                  {" "}
+                  {applyLoader ? (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
                     />
-                  </>
-                )}
-              </Button>
-            </div>
-            <div className="w-100 apply-btn mr-2">
-              <Button
-                onClick={() => {
-                  if (!isAuth)
-                    return history.push(`/login/?redirect=/job/${jobId}`);
-                  saveJob();
-                }}
-                style={{
-                  border: "1px solid #D8D8D8",
-                }}
-                variant="light"
-                className="btn-block d-flex justify-content-center align-items-center mt-1"
-              >
-                {" "}
-                {loading ? (
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                ) : (
-                  <>
-                    <span style={{ fontWeight: "bold" }}>Save this job </span>
-                    <FavoriteBorderOutlinedIcon
-                      className="ml-2"
-                      fontSize="small"
+                  ) : (
+                    <>
+                      <span style={{ fontWeight: "bold" }}>Apply Now </span>
+                      <ArrowForwardIosOutlinedIcon
+                        className="ml-5"
+                        fontSize="small"
+                      />
+                    </>
+                  )}
+                </Button>
+              </div>
+              <div className="w-100 apply-btn mr-2">
+                <Button
+                  onClick={() => {
+                    if (!isAuth)
+                      return history.push(`/login/?redirect=/job/${jobId}`);
+                    saveJob();
+                  }}
+                  style={{
+                    border: "1px solid #D8D8D8",
+                  }}
+                  variant="light"
+                  className="btn-block d-flex justify-content-center align-items-center mt-1"
+                >
+                  {" "}
+                  {loading ? (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
                     />
-                  </>
-                )}
-              </Button>
+                  ) : (
+                    <>
+                      <span style={{ fontWeight: "bold" }}>Save this job </span>
+                      <FavoriteBorderOutlinedIcon
+                        className="ml-2"
+                        fontSize="small"
+                      />
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

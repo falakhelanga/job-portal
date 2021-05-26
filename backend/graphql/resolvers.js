@@ -326,7 +326,9 @@ const resolvers = {
       throw error;
     }
     const userId = req.userId;
-    const userInfo = id !== null ? id : userId;
+
+    const userInfo = id !== "undefined" ? id : userId;
+
     const userFound = await Users.findById(mongoose.Types.ObjectId(userInfo));
 
     return {

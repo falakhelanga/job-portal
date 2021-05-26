@@ -1,6 +1,6 @@
 import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
-
+import { useSelector } from "react-redux";
 const Education = ({
   gradyear,
   subjects,
@@ -10,6 +10,7 @@ const Education = ({
   setPopulatedvalues,
   educationId,
 }) => {
+  const { isEmployer } = useSelector((state) => state.userLogin);
   const handleClick = () => {
     setPopulatedvalues({
       gradyear,
@@ -38,26 +39,28 @@ const Education = ({
         </div>
 
         {/*   EDIT DIV */}
-        <div
-          onClick={() => {
-            handleClick();
-          }}
-          className="d-flex align-items-center"
-          style={{
-            position: "absolute",
-            top: "0px",
-            right: "0px",
-            cursor: "pointer",
-          }}
-        >
-          <EditIcon fontSize="small" />{" "}
-          <span
-            className="ml-1"
-            style={{ fontWeight: "600", fontSize: "1.2rem" }}
+        {!isEmployer && (
+          <div
+            onClick={() => {
+              handleClick();
+            }}
+            className="d-flex align-items-center"
+            style={{
+              position: "absolute",
+              top: "0px",
+              right: "0px",
+              cursor: "pointer",
+            }}
           >
-            Edit
-          </span>
-        </div>
+            <EditIcon fontSize="small" />{" "}
+            <span
+              className="ml-1"
+              style={{ fontWeight: "600", fontSize: "1.2rem" }}
+            >
+              Edit
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

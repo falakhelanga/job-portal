@@ -165,6 +165,7 @@ export const userProfile =
 //  FETCH PROFILE ACTIONS
 
 export const fetchProfile = (id) => async (dispatch, getState) => {
+
   dispatch({
     type: constants.PROFILE_FETCH_INIT,
   });
@@ -177,6 +178,7 @@ export const fetchProfile = (id) => async (dispatch, getState) => {
     } = await httpRequest(graphqlQuery, token);
 
     const { fetchProfile } = data;
+ 
 
     dispatch({
       type: constants.PROFILE_FETCH_SUCC,

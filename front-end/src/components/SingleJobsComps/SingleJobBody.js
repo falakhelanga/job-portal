@@ -11,6 +11,7 @@ import SimilarJob from "./SimilarJob";
 const SingleJobBody = ({ jobId, history }) => {
   const singleJobState = useSelector((state) => state.fetchSingleJob);
   const token = useSelector((state) => state.userLogin.token);
+  const { isEmployer } = useSelector((state) => state.userLogin);
   const isAuth = token;
   const {
     apply,
@@ -116,72 +117,76 @@ const SingleJobBody = ({ jobId, history }) => {
         </div>
       </BodySection>
       {/* APPLY BUTTON */}
-      <div className="d-flex justify-content-center">
-        <div className="w-50  apply-btn mr-2 mt-3">
-          <Button
-            onClick={() => {
-              if (!isAuth)
-                return history.push(`/login/?redirect=/job/${jobId}`);
-              apply(jobId);
-            }}
-            variant="dark"
-            className="btn-block d-flex justify-content-center align-items-center mt-1"
-          >
-            {" "}
-            {applyLoader ? (
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-              />
-            ) : (
-              <>
-                <span style={{ fontWeight: "bold" }}>Apply Now </span>
-                <ArrowForwardIosOutlinedIcon
-                  className="ml-5"
-                  fontSize="small"
+      {!isEmployer && (
+        <div className="d-flex justify-content-center">
+          <div className="w-50  apply-btn mr-2 mt-3">
+            <Button
+              onClick={() => {
+                if (!isAuth)
+                  return history.push(`/login/?redirect=/job/${jobId}`);
+                apply(jobId);
+              }}
+              variant="dark"
+              className="btn-block d-flex justify-content-center align-items-center mt-1"
+            >
+              {" "}
+              {applyLoader ? (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
                 />
-              </>
-            )}
-          </Button>
+              ) : (
+                <>
+                  <span style={{ fontWeight: "bold" }}>Apply Now </span>
+                  <ArrowForwardIosOutlinedIcon
+                    className="ml-5"
+                    fontSize="small"
+                  />
+                </>
+              )}
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* RELATED JOBS */}
-      <div
-        className="mt-5"
-        style={{
-          border: "1px solid #D8D8D8",
-        }}
-      >
+      {!isEmployer && (
         <div
-          className="title-div  d-flex align-items-center justify-content-center"
+          className="mt-5"
           style={{
-            backgroundColor: "#f5f5f5",
-
-            height: "30px",
+            border: "1px solid #D8D8D8",
           }}
         >
-          <h4 className="mt-2 text-capitalize" style={{ fontWeight: "bold" }}>
-            more similar jobs
-          </h4>
-        </div>
-        {/* JOBS */}
+          <div
+            className="title-div  d-flex align-items-center justify-content-center"
+            style={{
+              backgroundColor: "#f5f5f5",
 
-        {similarJobs.map((curr) => (
-          <SimilarJob
-            key={curr.jobId}
-            id={curr.jobId}
-            title={curr.title}
-            image={curr.image_url}
-            company={curr.company}
-            location={curr.location}
-            createdAt={curr.createdAt}
-          />
-        ))}
-      </div>
+              height: "30px",
+            }}
+          >
+            <h4 className="mt-2 text-capitalize" style={{ fontWeight: "bold" }}>
+              more similar jobs
+            </h4>
+          </div>
+          {/* JOBS */}
+
+          {similarJobs.map((curr) => (
+            <SimilarJob
+              key={curr.jobId}
+              id={curr.jobId}
+              title={curr.title}
+              image={curr.image_url}
+              company={curr.company}
+              location={curr.location}
+              createdAt={curr.createdAt}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
