@@ -122,7 +122,7 @@ const JobCreate = ({ history }) => {
     };
 
     try {
-      const url = "http://localhost:5000/api/uploads/";
+      const url = "/api/uploads/";
       const { data } = await axios.post(url, formData, config);
 
       setImage(data);

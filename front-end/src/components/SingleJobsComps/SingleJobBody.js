@@ -12,6 +12,7 @@ const SingleJobBody = ({ jobId, history }) => {
   const singleJobState = useSelector((state) => state.fetchSingleJob);
   const token = useSelector((state) => state.userLogin.token);
   const { isEmployer } = useSelector((state) => state.userLogin);
+
   const isAuth = token;
   const {
     apply,
@@ -22,6 +23,7 @@ const SingleJobBody = ({ jobId, history }) => {
     setShowSnackBar: applySetShowSnackbar,
   } = useJobApply(jobId);
   const { job, similarJobs } = singleJobState;
+
   return (
     <div className="mt-3 pb-3">
       {applyMessage && (
@@ -101,21 +103,23 @@ const SingleJobBody = ({ jobId, history }) => {
 
       {/* Job benefical */}
 
-      <BodySection title="  job benefical">
-        <div
-          style={{
-            textAlign: "justify",
-          }}
-        >
-          <div className="d-flex flex-column align-items-start ml-5">
-            <ul>
-              {job.benefical.split(",").map((curr, index) => (
-                <li key={index}>{curr}</li>
-              ))}
-            </ul>
+      {job.benefical && (
+        <BodySection title="  job benefical">
+          <div
+            style={{
+              textAlign: "justify",
+            }}
+          >
+            <div className="d-flex flex-column align-items-start ml-5">
+              <ul>
+                {job.benefical.split(",").map((curr, index) => (
+                  <li key={index}>{curr}</li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-      </BodySection>
+        </BodySection>
+      )}
       {/* APPLY BUTTON */}
       {!isEmployer && (
         <div className="d-flex justify-content-center">
