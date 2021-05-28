@@ -1,2 +1,0 @@
-
-Bootstrapper._serverTime = '2021-04-02 10:48:46'; Bootstrapper._clientIP = '0.0.0.0'; Bootstrapper.insertPageFiles(['https://nexus.ensighten.com/aljazeera/ajprod/code/5c619e185ded817a1b466b9f3490d795.js?conditionId0=4865655','https://nexus.ensighten.com/aljazeera/ajprod/code/66055ef294cd8756c79e44d5aabaa0b4.js?conditionId0=4866184']);Bootstrapper.setPageSpecificDataDefinitionIds([]);
